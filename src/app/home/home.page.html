@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      GIFT CORNER
+    </ion-title>
+    <ion-button slot="end">
+      <ion-button fill="clear" color="light" [routerLink]="['/', 'home', 'cart']">
+        <ion-icon name="bag-handle" slot="icon-only"></ion-icon>
+        @if(totalItems > 0 ) {
+        <ion-badge color="primary">
+          <ion-text>{{totalItems}}</ion-text>
+        </ion-badge>
+        }
+      </ion-button>
+    </ion-button>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar debounce="800" #searchInput mode="ios" placeholder="Search for gifts..."
+      (ionInput)="onSearchChange($event)">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    @for(item of items; track i; let i = $index){
+    <ion-col sizeL="3" sizeM="4" sizeS="6" sizeXL="3" sizeXS="6">
+      <ion-card [routerLink]="['/', 'home', 'gifts', item?.id]">
+        <ion-thumbnail>
+          <ion-img [src]="item?.cover"></ion-img>
+        </ion-thumbnail>
+
+        <ion-label>
+          <ion-text color="dark"><strong>{{item?.name}}</strong></ion-text>
+          <p>
+            <ion-text color="dark">
+              $<strong>{{item?.price}}</strong>
+            </ion-text>
+          </p>
+        </ion-label>
+      </ion-card>
+    </ion-col>
+    }
+  </ion-row>
+</ion-content>
